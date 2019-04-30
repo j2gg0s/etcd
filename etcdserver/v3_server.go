@@ -599,9 +599,6 @@ func (s *EtcdServer) processInternalRaftRequestOnce(ctx context.Context, r pb.In
 	defer cancel()
 
 	start := time.Now()
-	if r.LeaseRevoke != nil {
-		time.Sleep(s.Cfg.ReqTimeout() + 10 * time.Millisecond)
-	}
 	err = s.r.Propose(cctx, data)
 	if err != nil {
 		proposalsFailed.Inc()

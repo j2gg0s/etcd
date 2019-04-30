@@ -570,6 +570,12 @@ func (le *lessor) runLoop() {
 	defer close(le.doneC)
 
 	for {
+		if le.lg != nil {
+			le.lg.Info("Debug lease",
+				zap.Int("itemMap size", len(le.itemMap)),
+				zap.Int("leaseHeap size", len(le.leaseHeap)),
+			)
+		}
 		le.revokeExpiredLeases()
 		le.checkpointScheduledLeases()
 
